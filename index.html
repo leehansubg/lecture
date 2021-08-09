@@ -1,0 +1,51 @@
+<!-- 10.104.104.196:9090 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도제시작</title>
+</head>
+
+<body>
+    <script>
+        //자바스크립트 : 웹브라우저에서만 동작
+
+        //자바스크립트에서의 변수는 오직 <<let>> 만 존재
+        let log = console.log;
+
+        log("라이더는 헌터보다 우월한 존재인것입니닷...!!");
+            
+        function hamsu_name(a, b) {
+            return a + b;
+        }
+
+        let sum = hamsu_name(999,999);
+        
+        log(sum);
+        let num = 0;
+        let id = 0;
+        //일정시간 간격마다 특정함수를 실행해주는 친구
+        function interval() {
+            // for (let i = 0; i < num; i++) {
+            //     aaa += ".";
+            // }
+            log(`박인붕 ${".".repeat(num)}`);
+            num++;
+        }
+        setInterval(interval, 500);
+
+        // setInterval
+        // 제이쿼리 돔제어
+        // 시계를 만드는것을 목표로
+
+    </script>
+
+    라이더는 헌터보다 우월한 존재인것입니닷...!! <br>
+    헌터는 인연을 모르는 머저리인것입니닷...!!
+</body>
+
+</html>

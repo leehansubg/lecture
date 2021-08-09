@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Palette+Mosaic&display=swap" rel="stylesheet">
+    <title>시계는 아침부터 똑딱똑딱</title>
+    <script src="jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="watch">
+            <div class="hour">
+                <div class="box">0</div>
+                <div class="box">1</div>
+            </div>
+            <div class="minute">
+                <div class="box">0</div>
+                <div class="box">1</div>
+            </div>
+            <div class="second">
+                <div class="box">0</div>
+                <div class="box">1</div>
+            </div>
+        </div>
+        <div class="control">
+            <button id="start">start</button>
+            <button id="stop">stop</button>
+            <button id="reset">reset</button>
+        </div>
+    </div>
+
+    <script>
+        $("#start").on("click", start);
+        $("#stop").on("click", stop);
+        $("#reset").on("click", reset);
+        let h = 0;
+        let m = 0;
+        let s = 0;
+
+        let starttf = true;
+        let stoptf = true;
+
+        function start() {
+            if (starttf) {
+                starttf = false;
+                stoptf = false;
+                startInterval = setInterval(function() {
+                    s += 1;
+
+                    if (s < 60) {
+
+                        $(".second > .box").eq(1).text(s);
+                        $(".second > .box").eq(1).animate({
+                            "top": 0
+                        }, 500);
+                        $(".second > .box").eq(0).animate({
+                            "top": "-100%"
+                        }, 500);
+
+                        setTimeout(function() {
+                            $(".second > .box").eq(0).text(s);
+                            $(".second > .box").eq(0).css({
+                                "top": 0
+                            });
+                            $(".second > .box").eq(1).css({
+                                "top": "100%"
+                            });
+                        }, 600);
+                    }
+                    if (s == 60) {
+                        s = 0;
+                        m++;
+                        $(".second > .box").eq(1).text(s);
+                        $(".second > .box").eq(1).animate({
+                            "top": 0
+                        }, 500);
+                        $(".second > .box").eq(0).animate({
+                            "top": "-100%"
+                        }, 500);
+                        $(".minute > .box").eq(1).text(m);
+                        $(".minute > .box").eq(1).animate({
+                            "top": 0
+                        }, 500);
+                        $(".minute > .box").eq(0).animate({
+                            "top": "-100%"
+                        }, 500);
+                        setTimeout(function() {
+                            $(".second > .box").eq(0).text(s);
+                            $(".second > .box").eq(0).css({
+                                "top": 0
+                            });
+                            $(".second > .box").eq(1).css({
+                                "top": "100%"
+                            });
+                            $(".minute > .box").eq(0).text(m);
+                            $(".minute > .box").eq(0).css({
+                                "top": 0
+                            });
+                            $(".minute > .box").eq(1).css({
+                                "top": "100%"
+                            });
+
+                        }, 600);
+
+                    }
+                    if (m == 60) {
+                        s = 0;
+                        m = 0;
+                        h++;
+                        $(".second > .box").eq(1).text(s);
+                        $(".second > .box").eq(1).animate({
+                            "top": 0
+                        }, 500);
+                        $(".second > .box").eq(0).animate({
+                            "top": "-100%"
+                        }, 500);
+                        $(".minute > .box").eq(1).text(m);
+                        $(".minute > .box").eq(1).animate({
+                            "top": 0
+                        }, 500);
+                        $(".minute > .box").eq(0).animate({
+                            "top": "-100%"
+                        }, 500);
+                        $(".hour > .box").eq(1).text(h);
+                        $(".hour > .box").eq(1).animate({
+                            "top": 0
+                        }, 500);
+                        $(".hour > .box").eq(0).animate({
+                            "top": "-100%"
+                        }, 500);
+                        setTimeout(function() {
+                            $(".second > .box").eq(0).text(s);
+                            $(".second > .box").eq(0).css({
+                                "top": 0
+                            });
+                            $(".second > .box").eq(1).css({
+                                "top": "100%"
+                            });
+                            $(".minute > .box").eq(0).text(m);
+                            $(".minute > .box").eq(0).css({
+                                "top": 0
+                            });
+                            $(".minute > .box").eq(1).css({
+                                "top": "100%"
+                            });
+                            $(".hour > .box").eq(0).text(h);
+
+                            $(".hour > .box").eq(0).css({
+                                "top": 0
+                            });
+
+                            $(".hour > .box").eq(1).css({
+                                "top": "100%"
+                            });
+
+                        }, 600);
+
+
+                    }
+
+                }, 1000);
+            }
+
+        }
+
+        let tf = true;
+
+        function stop() {
+            if (stoptf) {
+
+            } else {
+                if (tf) {
+                    clearInterval(startInterval);
+                    tf = false;
+                    $("#stop").text("restart");
+                } else {
+                    tf = true;
+                    starttf = true;
+                    $("#stop").text("stop");
+                    start();
+                }
+            }
+        }
+
+        function reset() {
+            starttf = true;
+            stoptf = true;
+            tf = true;
+            $("#stop").text("stop");
+            h = 0;
+            m = 0;
+            s = 0;
+            $(".hour > .box").eq(1).text(0);
+            $(".minute > .box").eq(1).text(0);
+            $(".second > .box").eq(1).text(0);
+            $(".hour > .box").eq(0).text(0);
+            $(".minute > .box").eq(0).text(0);
+            $(".second > .box").eq(0).text(0);
+            clearInterval(startInterval);
+
+
+        }
+    </script>
+</body>
+
+</html>
